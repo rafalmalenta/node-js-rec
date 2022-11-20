@@ -1,7 +1,15 @@
+const getMoviesSchema = require('../schema/getMovieSchema');
+
 class MoviesController{
-    getMovies(req, res) {
+    async getMovies(req, res) {
+        try{
+            const x = await getMoviesSchema.validate(req.body);
+        }
+        catch(error){
+            console.log(error)
+        }
         console.log(req.body);
-        res.send('Hello World!')
+    res.send("fds");
     }
 }
 
