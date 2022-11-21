@@ -4,8 +4,6 @@ const { JsonDB, Config } = require('node-json-db');
 
 let db = new JsonDB(new Config("data/db", true, false, '/'));
 
-const genresSchema = genresSchemaGenerator(genresHardCoded);
-
 async function addMovieSchemaGenerator(){
     let genres = await db.getData('/genres');    
     const genresschema = genresSchemaGenerator(genres);   
