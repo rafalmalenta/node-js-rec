@@ -1,35 +1,16 @@
 const { array, object, string } = require('yup');
-const genresSchema = require('./genreSchemaGenerator')
+const genresSchemaGenerator = require('./genreSchemaGenerator');
+const { JsonDB, Config } = require('node-json-db');
 
-const genresHardCoded = [
-    "Comedy",
-    "Fantasy",
-    "Crime",
-    "Drama",
-    "Music",
-    "Adventure",
-    "History",
-    "Thriller",
-    "Animation",
-    "Family",
-    "Mystery",
-    "Biography",
-    "Action",
-    "Film-Noir",
-    "Romance",
-    "Sci-Fi",
-    "War",
-    "Western",
-    "Horror",
-    "Musical",
-    "Sport"
-];
+let db = new JsonDB(new Config("data/db", true, false, '/'));
 
-const schema = genresSchema(genresHardCoded);
+async function getMovieSchemaGenerator(){
+    let xx = await db.getData('/genres');    
+    const schema = genresSchemaGenerator(xx);   
+    return object({    
+        title: string().optional(),
+        genres: array().optional().min(1).of(schema)
+    })
+}
 
-const userSchema = object({    
-    title: string().optional(),
-    genres: array().optional().min(1).of(schema)
-})
-
-module.exports = userSchema;
+module.exports = getMovieSchemaGenerator;

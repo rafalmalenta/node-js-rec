@@ -2,8 +2,10 @@ const getMoviesSchema = require('../schema/getMovieSchema');
 
 class MoviesController{
     async getMovies(req, res) {
+        const schema = await getMoviesSchema();
         try{
-            const x = await getMoviesSchema.validate(req.body);
+           
+            const x = await schema.validate(req.body);
         }
         catch(error){
             console.log(error)
