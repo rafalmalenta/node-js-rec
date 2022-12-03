@@ -1,7 +1,7 @@
 const { string } = require('yup');
 
-function genreSchemaGenerator(array){
-    return string().oneOf(array);
+function genreSchemaGenerator(availableGenres){
+    return string().oneOf(availableGenres);
 }
 
 module.exports = genreSchemaGenerator;
